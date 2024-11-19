@@ -32,49 +32,89 @@ function getHumanChoice(){
 }
 
 function  playRound(humanChoice,computerChoice){
-    console.log(`Human choice = ${humanChoice} , Computer choice = ${computerChoice}`);
+    let pChoise= document.createElement("p");
+    pChoise.textContent = `Human choice = ${humanChoice} , Computer choice = ${computerChoice}`;
+    let pResult = document.createElement("p");
+    let pScore = document.createElement("p");    
+    
     if (humanChoice == computerChoice){
-	console.log('Tie');
+	pResult.textContent = 'Tie';
     }
     else if (humanChoice == 'Rock'){
 	if (computerChoice == 'Paper'){
-	    console.log('Computer Wins!');
+	    pResult.textContent = 'Computer Wins!';
 	    computerScore++;
 	}
 	else {
-	    console.log('Human wins!')
+	    pResult.textContent = 'Human wins!';
 	    humanScore++;
 	}
     }
     else if (humanChoice == 'Paper') {
 	if (computerChoice == 'Scisor'){
-	    console.log('Computer Wins!');
+	    pResult.textContent = 'Computer Wins!';
 	    computerScore++;
 	}
 	else {
-	    console.log('Human wins!')
+	    pResult.textContent = 'Human wins!';
 	    humanScore++;
 	}   
     }
     else if (humanChoice == 'Scisor') {
 	if (computerChoice == 'Rock'){
-	    console.log('Computer Wins!');
+	    pResult.textContent = 'Computer Wins!';
 	    computerScore++;
 	}
 	else {
-	    console.log('Human wins!')
+	    pResult.textContent = 'Human wins!';
 	    humanScore++;
 	}
 	
     }
     else
-	console.log('Error')
-    console.log(`Human score ${humanScore} , Computer score ${computerScore}`);
+	pResult.textContent = ('Error');
+    pScore.textContent = `Human score ${humanScore} , Computer score ${computerScore}`;
+    resultsDiv.appendChild(pChoise);
+    resultsDiv.appendChild(pResult);
+    resultsDiv.appendChild(pScore);
+    if(humanScore == 5 || computerScore ==5){
+	let pFinal = document.createElement("p");
+	if(humanScore == 5){
+	    pFinal.textContent = 'Human WINS!'
+	}
+	else {
+	    pFinal.textContent = 'Computer WINS!'
+	}
+	resultsDiv.appendChild(pFinal);
+	buttonDiv.removeEventListener("click", buttonClick);
+	
+    }
+    
 }
 
-let humanScore = 0, computerScore = 0;
-for (let i=1; i<=6;i++){
-    console.log(`Round ${i}`)
-    playRound(getHumanChoice(), getComputerChoice());    
-}
+ let humanScore = 0, computerScore = 0;
+// for (let i=1; i<=6;i++){
+//     console.log(`Round ${i}`)
+//     playRound(getHumanChoice(), getComputerChoice());    
+// }
+const buttonDiv = document.querySelector(".buttons");
+const resultsDiv = document.querySelector(".results");
+
+function buttonClick(e) {
+    switch(e.target.id) {
+    case 'rockButton':
+	playRound('Rock', getComputerChoice());
+	break;
+    case 'paperButton':
+	playRound('Paper', getComputerChoice());
+	break;
+    case 'scissorButton':
+	playRound('Scisor', getComputerChoice());
+	break;
+    }
+	
+};
+buttonDiv.addEventListener("click", buttonClick);
+
+
 
